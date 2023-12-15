@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  appointments:
+    image: muhammad444/appointments:latest
+    ports:
+      - "7070:7070"
+    networks:
+      - devops-network
+
+  doctors:
+    image: muhammad444/doctors:latest
+    ports:
+      - "9090:9090"
+    networks:
+      - devops-network
+
+  frontend:
+    image: muhammad444/frontend:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - devops-network
+
+networks:
+  devops-network:
+    driver: bridge
