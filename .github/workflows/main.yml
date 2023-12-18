@@ -26,10 +26,11 @@ jobs:
         docker buildx build --platform linux/amd64,linux/arm64 -t muhammad444/appointments:latest -f appointments/Dockerfile .
 
     - name: Create Docker Auth Config
+      id: login
       run: echo '{"auths":{"https://index.docker.io/v1/":{"auth":"'${{ secrets.DOCKER_AUTH_CONFIG }}'"}}}' > ~/docker-auth.json
 
     - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_AUTH_CONFIG }}" | base64 --decode | docker login -u muhammad444 --password-stdin
+      run: docker login --config ~/docker-auth.json
 
     - name: Push Docker Image to Docker Hub
       run: docker push muhammad444/appointments:latest
