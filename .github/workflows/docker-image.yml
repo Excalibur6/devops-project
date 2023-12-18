@@ -1,0 +1,31 @@
+name: Appointments CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./appointments
+        push: true
+        tags: muhammad444/appointments:${{ github.sha }}
+
+    - name: Update Docker Compose
+      run: |
+        sed -i "s|muhammad444/appointments:.*|muhammad444/appointments:${{ github.sha }}|" docker-compose.yml
+        git add docker-compose.yml
+        git commit -m "Update appointments image tag to ${{ github.sha }}"
+        git push
