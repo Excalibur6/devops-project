@@ -13,16 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
+      - name: Set up Docker Buildx
+        run: |
+          docker buildx create --use
+          docker buildx inspect
+          
       - name: Build Docker image for Appointments
         run: docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/appointments:latest" --push .
 
