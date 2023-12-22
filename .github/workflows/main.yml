@@ -13,10 +13,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Kubectl
-        uses: azure/setup-kubectl@v1
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      # You can skip the kube_config setup
+      # - name: Set up Kubectl
+      #   uses: azure/setup-kubectl@v1
+      #   with:
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to Kubernetes
         run: kubectl apply -R -f ./*/k8s
