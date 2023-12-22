@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Docker Build and Push
 
 on:
   push:
@@ -10,24 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Build Docker Image
-      run: |
-        docker build -t muhammad444/appointments:latest ./appointments
-      working-directory: ./appointments
+      - name: Debug Docker Hub Credentials
+        run: |
+          echo "Docker Hub Username: ${{ secrets.docker_username }}"
+          echo "Docker Hub Token: ${{ secrets.docker_token }}"
 
-  push:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Push Docker Image to Docker Hub
-      run: |
-        echo "dckr_pat_wZHh74yvw9P928ogs9wjFgZMTTo" | docker login -u "muhammad444" --password-stdin
-        docker push muhammad444/appointments:latest
-      env:
-        DOCKER_CLI_ASK_PASS: "1"
+      - name: Build Docker Image
+        run: |
+          cd appointments
+          docker build -t muhammad444/appointments:latest .
+        
+      - name: Push Docker Image to Docker Hub
+        run: |
+          echo "${{ secrets.docker_token }}" | docker login -u "${{ secrets.docker_username }}" --password-stdin
+          docker push muhammad444/appointments:latest
