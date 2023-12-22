@@ -17,15 +17,20 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx inspect
-          
+
       - name: Build Docker image for Appointments
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/appointments:latest" --push .
+        run: |
+          cd appointments
+          docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/appointments:latest" --push .
 
       - name: Build Docker image for Doctors
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/doctors:latest" --push .
+        run: |
+          cd doctors
+          docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/doctors:latest" --push .
 
       - name: Build Docker image for Frontend
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/frontend:latest" --push .
+        run: |
+          cd frontend
+          docker buildx build --platform linux/amd64,linux/arm64 -t "muhammad444/frontend:latest" --push .
 
       # ... (other steps if needed)
-
