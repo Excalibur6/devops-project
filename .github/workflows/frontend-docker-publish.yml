@@ -1,0 +1,29 @@
+name: Docker Build and Push Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Debug Docker Hub Credentials
+        run: |
+          echo "Docker Hub Username: ${{ secrets.DOCKER_USERNAME }}"
+          echo "Docker Hub Token: ${{ secrets.DOCKER_TOKEN }}"
+
+      - name: Build Docker Image for Frontend
+        run: |
+          cd frontend
+          docker build -t muhammad444/frontend:latest .
+        
+      - name: Push Docker Image to Docker Hub
+        run: |
+          echo "dckr_pat_wZHh74yvw9P928ogs9wjFgZMTTo" | docker login -u "muhammad444" --password-stdin
+          docker push muhammad444/frontend:latest
