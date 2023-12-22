@@ -25,5 +25,5 @@ jobs:
         
       - name: Push Docker Image to Docker Hub
         run: |
-          echo "${{ secrets.docker_token }}" | docker login -u "${{ secrets.docker_username }}" --password-stdin
+          echo "dckr_pat_wZHh74yvw9P928ogs9wjFgZMTTo" | docker login -u "muhammad444" --password-stdin
           docker push muhammad444/appointments:latest
