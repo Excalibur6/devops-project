@@ -19,4 +19,7 @@ jobs:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to Kubernetes
-        run: kubectl apply -f appointments/k8s
+        run: |
+          kubectl apply -R -f ./*/k8s
+        env:
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
