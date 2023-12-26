@@ -17,17 +17,7 @@ spec:
           image: muhammad444/appointments:latest
           ports:
             - containerPort: 7070
-          env:
-            - name: admin
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: username
-            - name: admin123
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: password
+          
 ---
 apiVersion: v1
 kind: Service
