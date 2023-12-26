@@ -1,0 +1,14 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://localhost:7070
+  name: devProj
+contexts:
+- context:
+    cluster: devProj
+    user: ""
+  name: devProj-context
+current-context: devProj-context
+kind: Config
+preferences: {}
+users: null

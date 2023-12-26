@@ -28,3 +28,16 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointments-service
+spec:
+  selector:
+    app: appointments
+  ports:
+    - protocol: TCP
+      port: 7070
+      targetPort: 7070
+  type: LoadBalancer
