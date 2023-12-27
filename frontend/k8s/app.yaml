@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appointments-deployment
+  name: frontend-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: appointments
+      app: frontend
   template:
     metadata:
       labels:
-        app: appointments
+        app: frontend
     spec:
       containers:
-        - name: appointments
-          image: muhammad444/appointments:latest
+        - name: frontend
+          image: muhammad444/frontend:latest
           ports:
-            - containerPort: 7070
+            - containerPort: 3000
           resources:
             requests:
               memory: "64Mi"
@@ -27,28 +27,31 @@ spec:
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 7070
+              port: 3000
             initialDelaySeconds: 3
             periodSeconds: 3
           readinessProbe:
             httpGet:
               path: /readiness
-              port: 7070
+              port: 3000
             initialDelaySeconds: 3
             periodSeconds: 3
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 3000
           envFrom:
             - secretRef:
-                name: appointment
+                name: frontend
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: appointments-service
+  name: frontend-service
 spec:
   selector:
-    app: appointments
+    app: frontend
   ports:
     - protocol: TCP
-      port: 7070
-      targetPort: 7070
+      port: 3000
+      targetPort: 3000
   type: LoadBalancer
