@@ -2,14 +2,14 @@
 apiVersion: v1
 clusters:
 - cluster:
-    server: https://kubernetes.default.svc.cluster.local
+    server: http://localhost:8080
   name: devProj
 contexts:
 - context:
     cluster: devProj
     user: ""
   name: devProj-context
-current-context: devProj-context
+current-context: projpod-context
 kind: Config
 preferences: {}
 users: null
