@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: frontend-config
 data:
-  doctors_service_url: "doctors-service.default.svc.cluster.local"
-  appointments_service_url: "appointments-service.default.svc.cluster.local"
+  doctors_service_url: "Tiz is demo testing for project"
+
